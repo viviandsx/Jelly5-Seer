@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <cctype>
 #include <cmath>
+#include <cstdio>
 #include <set>
 #include <thread>
 
@@ -362,7 +363,12 @@ void Search::draw(double now, float dt)
     draw_pad_hints(kKbX, kKbY + 7 * (kKeyH + kKeyGap) + 22, {{PadButton::Square, T("Slett")}}, 0, 26);
 
     /* Results: the library's, then Seerr's under its own heading (when it is on). */
-    const std::string heading = for_query.empty() ? T("Forslag") : T("Treff for \xC2\xAB") + for_query + "\xC2\xBB";
+    std::string heading = T("Forslag");
+    if (!for_query.empty()) {   /* each language its own quotation marks */
+        char b[256];
+        std::snprintf(b, sizeof b, T("Treff for \xC2\xAB%s\xC2\xBB"), for_query.c_str());
+        heading = b;
+    }
     gfx::text(kResX, 236, heading, {gfx::Bold, 26, 1000}, kText2);
     const seerr_service::State seerr_state = seerr_service::snapshot().state;
     const bool seerr_on = !for_query.empty() && seerr_state != seerr_service::State::Off;

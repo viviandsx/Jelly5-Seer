@@ -110,7 +110,7 @@ const std::unordered_map<std::string, const char *> &english_table()
         {"Vurdering", "Rating"}, {"%d titler", "%d titles"}, {"Henter …", "Loading …"},
         {"Ingenting her ennå", "Nothing here yet"}, {"Filmer, serier, personer, musikk", "Movies, shows, people, music"},
         {"mellomrom", "space"}, {"⌫ slett", "⌫ delete"}, {"▢ sletter", "▢ deletes"}, {"Forslag", "Suggestions"},
-        {"Treff for «", "Results for «"}, {"Ingen treff", "No results"},
+        {"Treff for «%s»", "Results for “%s”"}, {"Ingen treff", "No results"}, {"Smart", "Smart"},
         /* sign-in, profiles */
         {"Fant ingen Jellyfin-server på ", "No Jellyfin server found at "},
         {"Feil brukernavn eller passord", "Wrong username or password"}, {"Innloggingen mislyktes", "Sign-in failed"},
@@ -202,7 +202,7 @@ const std::unordered_map<std::string, const char *> &english_table()
         {"Godkjennes automatisk og sendes rett videre", "Approved automatically and sent straight on"},
         {"En administrator må godkjenne den", "An administrator must approve it"},
         {"%d av %d forespørsler brukt (siste %d dager)", "%d of %d requests used (last %d days)"},
-        {"Henter valg …", "Loading options …"}, {"Sender …", "Sending …"}, {"Be om «", "Request «"},
+        {"Henter valg …", "Loading options …"}, {"Sender …", "Sending …"}, {"Be om «%s»", "Request “%s”"},
         {"Serie", "Series"}, {"Film", "Movie"}, {"Alle sesonger", "All seasons"},
         {"Alle manglende sesonger", "All missing seasons"}, {"%d sesong", "%d season"}, {"%d sesonger", "%d seasons"},
         {"%d episoder", "%d episodes"}, {"Kvalitetsprofil", "Quality profile"}, {"Rotmappe", "Root folder"},
