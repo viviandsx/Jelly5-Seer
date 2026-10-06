@@ -50,6 +50,12 @@ everything from TMDB itself and posters come through Seerr's own image cache,
 so a console with no Internet access at all, the setup this fork is built for,
 gets all of it. With Seerr off, Jelly5 behaves exactly as before.
 
+**Internet mode** *(experimental, untested on console)*: for a PS5 that does
+have Internet, *Settings → Seerr → Network → Internet* lets Seerr's address be
+a public HTTPS one, and loads posters straight from TMDB when Seerr's image
+cache does not answer. It is off by default; *Local network only* never
+contacts anything but Jellyfin and Seerr.
+
 ### Setup
 
 1. **Seerr 3.4 or newer** for the automatic sign-in (tested with 3.5), using
