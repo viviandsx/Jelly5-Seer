@@ -13,6 +13,78 @@
 
 ---
 
+## Jelly5-Seerr: this fork
+
+**Jelly5-Seerr** is a fork of [Jelly5](https://github.com/02dnot/Jelly5) by 02dnot
+that adds [Seerr](https://github.com/seerr-team/seerr), the successor of
+Overseerr and Jellyseerr: find what your library doesn't have, and request it,
+from the couch. Everything else is Jelly5 as described below.
+
+<p align="center">
+  <img src="docs/media/seerr-discover.jpg" alt="The Discover tab: trending titles with where each stands in Seerr" width="49%">
+  <img src="docs/media/seerr-request-seasons.jpg" alt="Requesting the missing seasons of a series, with its quality profile and root folder" width="49%">
+</p>
+
+### What it adds
+
+- **Search** shows Seerr's films and series under your library's results, with
+  where each stands: available, partly available, requested, pending. Titles
+  your library already shows are not repeated, and one your server has opens
+  its Jellyfin page.
+- **Requests** from a title's page: a film in one press, a series season by
+  season. With Seerr's *advanced requests* permission you also pick the
+  Radarr/Sonarr server, quality profile and root folder, Seerr's defaults
+  preselected. The sheet says whether an administrator must approve the request
+  and what is left of your quota.
+- **Request more seasons** on the Jellyfin page of a series you only have part
+  of.
+- **Discover**, a tab next to Search (L1/R1 like the others): trending, popular
+  and upcoming films and series, and your latest requests, in the same liquid
+  glass rows as the home screen.
+- **Trailers** as a QR code: your phone plays the video.
+
+### Offline first
+
+The PS5 only ever talks to Jellyfin and Seerr on your local network. Seerr gets
+everything from TMDB itself and posters come through Seerr's own image cache,
+so a console with no Internet access at all, the setup this fork is built for,
+gets all of it. With Seerr off, Jelly5 behaves exactly as before.
+
+### Setup
+
+1. **Seerr 3.4 or newer** for the automatic sign-in (tested with 3.5), using
+   Jellyfin as its media server, and **Quick Connect enabled** in Jellyfin.
+2. On the PS5: **Settings → Seerr → On**. The address starts as your Jellyfin
+   server's host on port 5055; change it if Seerr runs elsewhere. Use an
+   address the console can reach on your network: a public domain that only
+   resolves from outside your home will not work from the PS5.
+3. That's it. Jelly5 signs in by Quick Connect on its own (Seerr starts it, the
+   Jellyfin account in use approves it), so requests are made as you, with your
+   Seerr permissions. *Test the connection* checks the address, the session and
+   the pictures.
+
+When automatic sign-in isn't possible (an older Seerr, Quick Connect off),
+choose *Jellyfin password* or *Seerr account (email)* under *Sign-in* and sign
+in once with the PS5 keyboard: only the session is kept, never the password.
+Each Jellyfin account on the console has its own Seerr session.
+
+<p align="center">
+  <img src="docs/media/seerr-settings.jpg" alt="Settings → Seerr, signed in by Quick Connect" width="49%">
+  <img src="docs/media/seerr-request-movie.jpg" alt="Requesting a film" width="49%">
+</p>
+
+It installs as Jelly5 (the same title, `PPSA99505`): it takes the place of the
+original, keeping its accounts and settings. This fork publishes no release
+builds of its own yet: build it as described in *Building*.
+
+Not there yet: requests to separate 4K Radarr/Sonarr instances.
+
+All credit for Jelly5 itself goes to 02dnot and the projects it builds on (see
+*Credits*). This fork only adds the Seerr parts, under the same
+GPL-3.0-or-later licence.
+
+---
+
 ## What it is
 
 Jelly5 is an app that appears on the PS5 home screen under **Media**. Everything you see is drawn directly on the GPU at the
