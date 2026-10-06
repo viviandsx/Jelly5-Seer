@@ -21,8 +21,8 @@ Overseerr and Jellyseerr: find what your library doesn't have, and request it,
 from the couch. Everything else is Jelly5 as described below.
 
 <p align="center">
-  <img src="docs/media/seerr-discover.jpg" alt="The Discover tab: trending titles with where each stands in Seerr" width="49%">
   <img src="docs/media/seerr-request-seasons.jpg" alt="Requesting the missing seasons of a series, with its quality profile and root folder" width="49%">
+  <img src="docs/media/seerr-request-movie.jpg" alt="Requesting a film" width="49%">
 </p>
 
 ### What it adds
@@ -76,12 +76,22 @@ Each Jellyfin account on the console has its own Seerr session.
 
 <p align="center">
   <img src="docs/media/seerr-settings.jpg" alt="Settings → Seerr, signed in by Quick Connect" width="49%">
-  <img src="docs/media/seerr-request-movie.jpg" alt="Requesting a film" width="49%">
 </p>
 
-It installs as Jelly5 (the same title, `PPSA99505`): it takes the place of the
-original, keeping its accounts and settings. This fork publishes no release
-builds of its own yet: build it as described in *Building*.
+The full settings and troubleshooting are under *Seerr* in *Installation*.
+
+### Releases and versions
+
+Download it from [this fork's releases](https://github.com/viviandsx/Jelly5-Seer/releases/latest)
+and install it as described in *Installation*. It installs as Jelly5 (the same
+title, `PPSA99505`): it takes the place of the original, keeping its accounts
+and settings. Never keep both: there can only be one `PPSA99505` folder under
+`/data/homebrew`.
+
+Versions are Jelly5's with the fork's own build of its Seerr parts:
+`0.2.1-seerr.1` is Jelly5 0.2.1 with the first Seerr release. *Check for
+updates* asks this fork's releases, never the original's, so it never offers to
+replace Jelly5-Seerr with Jelly5.
 
 Not there yet: requests to separate 4K Radarr/Sonarr instances.
 
@@ -184,9 +194,9 @@ it).
 
 ### Install
 
-1. **Download** `Jelly5-<version>.zip` from the
-   [latest release](../../releases/latest) and unzip it. Inside is a folder
-   called `PPSA99505`.
+1. **Download** `Jelly5-<version>.zip` (for example `Jelly5-0.2.1-seerr.1.zip`)
+   from the [latest release of Jelly5-Seerr](https://github.com/viviandsx/Jelly5-Seer/releases/latest)
+   and unzip it. Inside is a folder called `PPSA99505`.
 2. **Start the jailbreak** on the PS5 as usual, with ShadowMount+ loaded (and
    your FTP server, if you use FTP).
 3. **Upload the folder** `PPSA99505` to `/data/homebrew/` on the console, so
@@ -248,7 +258,8 @@ separate 4K Radarr/Sonarr instances are not offered.
 Do not delete the old folder and copy a new one, and never keep a second
 folder with the same title ID anywhere under `/data/homebrew`: ShadowMount+
 bind-mounts the folder, and replacing it breaks the mount. Your accounts and
-settings are kept.
+settings are kept. Jelly5 and Jelly5-Seerr are the same title: updating from
+one to the other is the same upload over the same folder.
 
 ### Uninstall
 
