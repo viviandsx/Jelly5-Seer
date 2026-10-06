@@ -136,11 +136,18 @@ if [[ -z "${LOG_HOST}" && -n "${PS5_HOST}" ]]; then
             awk '{for (i = 1; i < NF; i++) if ($i == "src") { print $(i + 1); exit }}' || true)"
     fi
 fi
-JELLY5_DEFS="-DJELLY5_VERSION=\\\"$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["contentVersion"])' "${PARAM}")\\\""
+# Jelly5-Seerr's version: Jelly5's, then the fork's own build of its Seerr parts
+# ("0.2.1-seerr.1"). param.json's contentVersion (the console's, XX.YYY.ZZZ)
+# carries both: ZZZ = 100 x the Seerr build + Jelly5's patch (00.002.101).
+VERSION="$(python3 -c '
+import json, sys
+a, b, c = (int(x) for x in json.load(open(sys.argv[1]))["contentVersion"].split("."))
+print(f"{a}.{b}.{c % 100}" + (f"-seerr.{c // 100}" if c >= 100 else ""))' "${PARAM}")"
+JELLY5_DEFS="-DJELLY5_VERSION=\\\"${VERSION}\\\""
 [[ -n "${JF_URL}" ]] && JELLY5_DEFS+=" -DJELLY5_SERVER=\\\"${JF_URL}\\\""
 [[ -n "${SEERR_URL}" ]] && JELLY5_DEFS+=" -DJELLY5_SEERR_URL=\\\"${SEERR_URL}\\\""
 [[ -n "${LOG_HOST}" ]] && JELLY5_DEFS+=" -DJELLY5_LOG_HOST=\\\"${LOG_HOST}\\\" -DJELLY5_LOG_PORT=${JELLY5_LOG_PORT:-5555}"
-ok "log -> ${LOG_HOST:-none}:${JELLY5_LOG_PORT:-5555}, server ${JF_URL:-default}, Seerr ${SEERR_URL:-not set}"
+ok "version ${VERSION}; log -> ${LOG_HOST:-none}:${JELLY5_LOG_PORT:-5555}, server ${JF_URL:-default}, Seerr ${SEERR_URL:-not set}"
 make -C "${APP_ROOT}" -j"$(nproc)" objects \
     CC="${TCC}" CXX="${TCXX}" TFLAGS="${TFLAGS[*]}" HB="${HB}" JELLY5_DEFS="${JELLY5_DEFS}" \
     > "${BUILD}/compile.log" 2>&1 || { tail -40 "${BUILD}/compile.log"; die "compile failed"; }
@@ -293,7 +300,7 @@ if (( FFPFSC )); then
         "${APPDIR}" "${BUILD}/app/${TITLE_ID}.ffpfsc"
 fi
 if (( RELEASE )); then
-    VER="$(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["contentVersion"])' "${PARAM}")"
+    VER="${VERSION}"
     rm -f -- "${BUILD}/app/Jelly5-${VER}.zip"
     # The licences travel with the binaries (GPL, and the fonts' OFL).
     LIC="${BUILD}/app/licenses"

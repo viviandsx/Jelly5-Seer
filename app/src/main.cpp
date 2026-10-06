@@ -297,17 +297,22 @@ void refresh_hero_cache(jf::Client &c, std::vector<jf::Item> *out)
  * titles are kept (a refresh after playback only needs the rows). */
 bool draw_connection(double now);   /* below: the note when the server is out of reach */
 
-/* "00.001.001" or "v0.1.1" as one comparable number (major, minor, patch). */
-long version_number(const std::string &v)
+/* "0.2.1-seerr.1" or "v0.2.1-seerr.1" (Jelly5's version, then this fork's own
+ * build of its Seerr parts) as one comparable number. */
+long long version_number(const std::string &v)
 {
-    int a = 0, b = 0, c = 0;
-    std::sscanf(v.c_str() + (v[0] == 'v' ? 1 : 0), "%d.%d.%d", &a, &b, &c);
-    return a * 1000000L + b * 1000L + c;
+    int a = 0, b = 0, c = 0, seerr = 0;
+    const char *p = v.c_str() + (!v.empty() && v[0] == 'v' ? 1 : 0);
+    std::sscanf(p, "%d.%d.%d", &a, &b, &c);
+    if (const char *s = std::strstr(p, "-seerr."))
+        seerr = std::atoi(s + 7);
+    return ((a * 1000LL + b) * 1000LL + c) * 1000LL + seerr;
 }
 
 /* Opt-in (Innstillinger: Se etter oppdateringer): once a launch, ask GitHub for
- * the latest release and say so when there is a newer one. The only request
- * Jelly5 makes that is not to the Jellyfin server, and only when turned on. */
+ * the latest release and say so when there is a newer one. Jelly5-Seerr asks
+ * its own releases, never Jelly5's: those would replace it (the same title).
+ * The only request made that is not to Jellyfin or Seerr, and only when on. */
 void check_for_update()
 {
     static bool asked = false;
@@ -316,7 +321,7 @@ void check_for_update()
     asked = true;
     std::thread([] {
         const jf::HttpResponse r =
-            jf::http_request("GET", "https://api.github.com/repos/02dnot/Jelly5/releases/latest",
+            jf::http_request("GET", "https://api.github.com/repos/viviandsx/Jelly5-Seer/releases/latest",
                              {"Accept: application/vnd.github+json", "User-Agent: Jelly5/" JELLY5_VERSION}, "", 10);
         if (!r.ok())
             return;
